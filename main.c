@@ -43,7 +43,7 @@ int main(void) {
 	IntMasterEnable();
 
 	while (1) {
-
+		// Esperar las interrupciones
 	}
 }
 
@@ -55,9 +55,9 @@ void ADC0SS3_Init(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 	GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
 
-	// 1.1 Configuracion de frecuencia de muestreo y pin PB5 como analogico
+	// 1.1 Configuracion de frecuencia de muestreo
 	SysCtlADCSpeedSet(SYSCTL_ADCSPEED_125KSPS);
-	// 1. Configuracion de reloj al modulo ADC0 y al puerto B
+	// 1. Configuracion de reloj al modulo ADC0
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
 	// 2. Configurar el numero de secuenciador (=3) y el trigger
 	ADCSequenceConfigure(ADC0_BASE, 3, ADC_TRIGGER_TIMER, 0);
@@ -109,6 +109,8 @@ void Int_ADC0SS3(void) {
 	// Leer la muestra
 	//muestra = (ADC0_SSFIFO3_R & 0xfff);
 	muestra = ADC0_SSFIFO3_R;
+
+	// Operaciones sobre la muestra
 
 	// Hacer toggle a PF2
 	PF2 ^= 0xff;
